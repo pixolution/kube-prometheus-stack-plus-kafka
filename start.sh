@@ -18,7 +18,7 @@ if [ ! -x "./kind" ]; then
 fi
 title "create cluster"
 export KUBECONFIG="kind-kubeconfig.yml"
-kind create cluster --name scraper-test-cluster --config=kind-cluster.yaml --wait 5m
+kind create cluster --name scraper-test-cluster --config=kind-cluster.yaml --wait 5m --image kindest/node:v1.26.3
 
 # https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
 title "install kube-prometheus-stack chart"
