@@ -5,6 +5,9 @@ and [`kafka` helm chart](https://github.com/bitnami/charts/tree/main/bitnami/kaf
 adding additional scrape configs to prometheus changed this year to this:
 * https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/proposals/202212-scrape-config.md
 
+Here an example of the `prometheus-operator` README:
+* https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md#deploying-a-sample-application
+
 But I cannot get it to work, please help!
 
 The script `start.sh` contains all steps to reproduce the issue (`stop.sh` deletes the cluster). Make sure the
@@ -104,8 +107,15 @@ Spec:
 Events:                             <none>
 ```
 
-But they do not show up in the list of scrape targets in prometheus. The other
-`ServiceMonitor` resources are all available, but `kafka` is not part of the list:
+Checking the labels selector:
+```
+$ ./kubectl_wrapper.sh -n monitoring get service -l'app.kubernetes.io/component=cluster-metrics,app.kubernetes.io/instance=kafka-bitnami,app.kubernetes.io/name=kafka'
+NAME                    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+kafka-bitnami-metrics   ClusterIP   10.96.47.234   <none>        9308/TCP   17m
+```
+
+But the `kafka` `ServiceMonitor` is not picked up by prometheus (not part of the
+list of scrape targets). The other `ServiceMonitor` resources are all available:
 ```
 ./list-active-scrape-configs.sh
 Run kubectl in background to proxy to prometheus . . .
@@ -142,7 +152,7 @@ Handling connection for 9090
 "kube-prometheus-stack-kube-proxy"
 "http://172.19.0.4:10249/metrics"
 "kube-prometheus-stack-kube-proxy"
-"http://172.19.0.5:10249/metrics"
+"http://172.19.0.5:10249/metrics"https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md#deploying-a-sample-application
 "kube-prometheus-stack-kube-scheduler"
 "https://172.19.0.4:10259/metrics"
 "kube-prometheus-stack-kube-state-metrics"
@@ -189,7 +199,7 @@ Here the details of a working `ServiceMonitor` definition (`kube-prometheus-stac
 ```
 $ ./kubectl_wrapper.sh describe servicemonitor -n monitoring kube-prometheus-stack-alertmanager
 Name:         kube-prometheus-stack-alertmanager
-Namespace:    monitoring
+Namespace:    monitoring`
 Labels:       app=kube-prometheus-stack-alertmanager
               app.kubernetes.io/instance=kube-prometheus-stack
               app.kubernetes.io/managed-by=Helm
@@ -226,5 +236,8 @@ Events:                <none>
 
 Both helm chart are deployed to the same namespace `monitoring`, the
 `serviceMonitorSelector` is set to `prometheus: "true"` in `values.yaml` of
-prometheus. Why does prometheus not add my scrape config? Found no events or
-logs that may help.
+prometheus. The `kafka` helm chart creates a `ServiceMonitor` that points to
+the `kafka-bitnami-metrics` service with label `prometheus: "true"` set.
+
+Why does prometheus not add my scrape config? Found no events or
+logs that gave me any insight.
