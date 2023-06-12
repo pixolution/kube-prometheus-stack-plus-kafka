@@ -14,9 +14,5 @@ prometheus:
   serviceMonitorSelectorNilUsesHelmValues: true
 
 grafana:
-#  plugins:
-#    - https://github.com/hoptical/grafana-kafka-datasource/releases/download/v0.2.0/hamedkarbasi93-kafka-datasource-0.2.0.zip;hamedkarbasi93-kafka-datasource
-#  dashboardsConfigMaps:
-#    default: "kafka-dashboard"
   adminUser: test
   adminPassword: test1234
