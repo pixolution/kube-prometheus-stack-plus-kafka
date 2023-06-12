@@ -1,13 +1,13 @@
 # kube-prometheus-stack-plus-kafka
 
-Minimal example of starting a kind cluster, install the `kube-prometheus-stack`
-and `kafka` helm chart both into the same namespace `monitoring`. The way of
+Minimal example of starting a kind cluster, install the [`kube-prometheus-stack`](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack)
+and [`kafka` helm chart](https://github.com/bitnami/charts/tree/main/bitnami/kafka/#installing-the-chart) both into the same namespace `monitoring`. The way of
 adding additional scrape configs to prometheus changed this year to this:
 * https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/proposals/202212-scrape-config.md
 
 But I cannot get it to work, please help!
 
-The script `start.sh` contains all steps to reproduce the issue. Make sure the
+The script `start.sh` contains all steps to reproduce the issue (`stop.sh` deletes the cluster). Make sure the
 tools `curl` and `netcat` are installed:
 ```
 ./start.sh
