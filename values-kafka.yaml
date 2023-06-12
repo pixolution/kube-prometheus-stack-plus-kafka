@@ -1,0 +1,27 @@
+replicaCount: 3
+nodeSelector:
+  node-type: worker
+zookeeper:
+  enabled: false
+kraft:
+  enabled: true
+  processRoles: broker,controller
+  controllerListenerNames: CONTROLLER
+  clusterId: MjM4YTEyMzRmZjFkMTFlZG
+auth:
+  clientProtocol: plaintext
+  externalClientProtocol: plaintext
+allowPlaintextListener: true
+serviceAccount:
+  create: true
+rbac:
+  create: false
+metrics:
+  kafka:
+    enabled: true
+  jmx:
+    enabled: false
+  serviceMonitor:
+    enabled: true
+    labels:
+      prometheus: "true"

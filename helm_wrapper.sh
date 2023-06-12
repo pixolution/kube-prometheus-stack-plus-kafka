@@ -1,6 +1,9 @@
 #!/bin/bash
-
+#
+# helm dockerized
+#
 cd "$(dirname "$BASH_SOURCE")"
+WD="$(pwd)"
 set -e
 
 IMAGE="alpine/helm:3.12.0"
