@@ -5,4 +5,4 @@
 cd "$(dirname "$BASH_SOURCE")"
 set -e
 
-kind delete cluster --name scraper-test-cluster
+./kind delete cluster --name scraper-test-cluster
