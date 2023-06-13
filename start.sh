@@ -13,12 +13,13 @@ function title() {
 }
 # get kind
 if [ ! -x "./kind" ]; then
+  title "Download kind binary"
 	[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.19.0/kind-linux-amd64
 	chmod a+x kind
 fi
 title "create cluster"
 export KUBECONFIG="kind-kubeconfig.yml"
-kind create cluster --name scraper-test-cluster --config=kind-cluster.yaml --wait 5m --image kindest/node:v1.26.3
+./kind create cluster --name scraper-test-cluster --config=kind-cluster.yaml --wait 5m --image kindest/node:v1.26.3
 
 # https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
 title "install kube-prometheus-stack chart"
