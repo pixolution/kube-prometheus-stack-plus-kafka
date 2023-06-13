@@ -20,8 +20,12 @@ metrics:
   kafka:
     enabled: true
   jmx:
-    enabled: false
+    enabled: true
+    labels:
+      app: kafka-jmx
+      release: kube-prometheus-stack
   serviceMonitor:
     enabled: true
     labels:
-      prometheus: "true"
+      app: kafka
+      release: kube-prometheus-stack

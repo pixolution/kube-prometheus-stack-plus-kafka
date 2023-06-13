@@ -7,11 +7,8 @@ prometheusOperator:
 
 prometheus:
   enabled: true
-  serviceMonitorSelector:
-    matchLabels:
-      prometheus: true
   serviceMonitorNamespaceSelector: {}
-  serviceMonitorSelectorNilUsesHelmValues: true
+  serviceMonitorSelectorNilUsesHelmValues: False
 
 grafana:
   adminUser: test
