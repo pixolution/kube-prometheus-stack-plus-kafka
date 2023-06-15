@@ -4,6 +4,7 @@ prometheusOperator:
     additional:
       - kube-system
       - monitoring
+      - my-namespace
 
 prometheus:
   enabled: true
@@ -18,7 +19,7 @@ prometheus:
           operator: In
           values:
             - monitoring
-            - pixolution
+            - my-namespace
             - kube-system
 
 grafana:

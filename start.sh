@@ -41,7 +41,7 @@ title "install kafka chart"
 ./helm_wrapper.sh install -f values-kafka.yaml \
                           kafka-bitnami \
 													oci://registry-1.docker.io/bitnamicharts/kafka \
-													--create-namespace --namespace monitoring \
+													--create-namespace --namespace my-namespace \
 													--version 22.1.3
 echo "Wait until kafka is up and running . . ."
 ./kubectl_wrapper.sh wait --namespace monitoring \
