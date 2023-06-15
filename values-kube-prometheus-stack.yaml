@@ -7,8 +7,19 @@ prometheusOperator:
 
 prometheus:
   enabled: true
-  serviceMonitorNamespaceSelector: {}
-  serviceMonitorSelectorNilUsesHelmValues: True
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector:
+      matchLabels:
+        release: my-own-release
+    serviceMonitorNamespaceSelector:
+      matchExpressions:
+        - key: name
+          operator: In
+          values:
+            - monitoring
+            - pixolution
+            - kube-system
 
 grafana:
   adminUser: test

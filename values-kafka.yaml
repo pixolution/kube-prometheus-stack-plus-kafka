@@ -28,4 +28,4 @@ metrics:
     enabled: true
     labels:
       app: kafka
-      release: kube-prometheus-stack
+      release: my-own-release
